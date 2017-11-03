@@ -351,6 +351,7 @@ public class DagUtils {
     MRHelpers.translateMRConfToTez(conf);
     String keyClass = conf.get(TezRuntimeConfiguration.TEZ_RUNTIME_KEY_CLASS);
     String valClass = conf.get(TezRuntimeConfiguration.TEZ_RUNTIME_VALUE_CLASS);
+//    boolean test = conf.getBoolean(TezRuntimeConfiguration.TEZ_RUNTIME_GLOBAL_SORTED_TABLE, false);
     String partitionerClassName = conf.get("mapred.partitioner.class");
     Map<String, String> partitionerConf;
 

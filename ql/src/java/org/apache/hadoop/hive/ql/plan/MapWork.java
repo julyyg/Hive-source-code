@@ -110,6 +110,8 @@ public class MapWork extends BaseWork {
 
   public static final int SAMPLING_ON_PREV_MR = 1;  // todo HIVE-3841
   public static final int SAMPLING_ON_START = 2;    // sampling on task running
+  
+  private boolean addedbysortedtable = false;
 
   // the following two are used for join processing
   private boolean leftInputJoin;
@@ -673,5 +675,13 @@ public class MapWork extends BaseWork {
 
   public VectorizedRowBatch getVectorizedRowBatch() {
     return vectorizedRowBatch;
+  }
+  
+  public void setAddedBySortedTable(boolean b) {
+	  this.addedbysortedtable = b;
+  }
+  
+  public boolean isAddedBySortedTable() {
+	  return this.addedbysortedtable;
   }
 }

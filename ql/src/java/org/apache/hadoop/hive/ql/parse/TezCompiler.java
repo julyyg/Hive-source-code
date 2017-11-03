@@ -73,6 +73,7 @@ import org.apache.hadoop.hive.ql.optimizer.RemoveDynamicPruningBySize;
 import org.apache.hadoop.hive.ql.optimizer.SetReducerParallelism;
 import org.apache.hadoop.hive.ql.optimizer.metainfo.annotation.AnnotateWithOpTraits;
 import org.apache.hadoop.hive.ql.optimizer.physical.CrossProductCheck;
+import org.apache.hadoop.hive.ql.optimizer.physical.DistributedSortedTableGlobalOrderOptimizer;
 import org.apache.hadoop.hive.ql.optimizer.physical.LlapDecider;
 import org.apache.hadoop.hive.ql.optimizer.physical.MemoryDecider;
 import org.apache.hadoop.hive.ql.optimizer.physical.MetadataOnlyOptimizer;
@@ -471,6 +472,11 @@ public class TezCompiler extends TaskCompiler {
     PhysicalContext physicalCtx = new PhysicalContext(conf, pCtx, pCtx.getContext(), rootTasks,
        pCtx.getFetchTask());
 
+    if (conf.getBoolVar(HiveConf.ConfVars.HIVEGLOBALSORTEDTABLEOPTIMIZE)) {
+    	physicalCtx = new DistributedSortedTableGlobalOrderOptimizer().resolve(physicalCtx);
+    }else {
+        LOG.debug("Skipping global sorted table optimization");
+    }
     if (conf.getBoolVar(HiveConf.ConfVars.HIVENULLSCANOPTIMIZE)) {
       physicalCtx = new NullScanOptimizer().resolve(physicalCtx);
     } else {

@@ -1495,6 +1495,7 @@ public class HiveConf extends Configuration {
     HIVEIDENTITYPROJECTREMOVER("hive.optimize.remove.identity.project", true, "Removes identity project from operator tree"),
     HIVEMETADATAONLYQUERIES("hive.optimize.metadataonly", true, ""),
     HIVENULLSCANOPTIMIZE("hive.optimize.null.scan", true, "Dont scan relations which are guaranteed to not generate any rows"),
+    HIVEGLOBALSORTEDTABLEOPTIMIZE("hive.globalsortedtable.optimize", false, "Make distributed sorted table global sorted"),
     HIVEOPTPPD_STORAGE("hive.optimize.ppd.storage", true,
         "Whether to push predicates down to storage handlers"),
     HIVEOPTGROUPBY("hive.optimize.groupby", true,

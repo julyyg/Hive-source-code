@@ -52,6 +52,8 @@ import org.apache.hive.common.util.ReflectionUtil;
 @SuppressWarnings({"serial", "deprecation"})
 public class ReduceWork extends BaseWork {
 
+  private boolean addedbysortedtable = false;
+	
   public ReduceWork() {}
 
   public ReduceWork(String name) {
@@ -251,5 +253,13 @@ public class ReduceWork extends BaseWork {
 
   public void setMaxReduceTasks(int maxReduceTasks) {
     this.maxReduceTasks = maxReduceTasks;
+  }
+  
+  public void setAddedBySortedTable(boolean b) {
+	  this.addedbysortedtable = b;
+  }
+  
+  public boolean isAddedBySortedTable() {
+	  return this.addedbysortedtable;
   }
 }

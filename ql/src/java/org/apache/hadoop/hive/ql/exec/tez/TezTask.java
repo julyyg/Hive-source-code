@@ -76,6 +76,7 @@ import org.apache.tez.dag.api.client.DAGClient;
 import org.apache.tez.dag.api.client.DAGStatus;
 import org.apache.tez.dag.api.client.StatusGetOpts;
 import org.apache.tez.dag.api.client.VertexStatus;
+import org.apache.tez.runtime.library.api.TezRuntimeConfiguration;
 import org.json.JSONObject;
 
 /**
@@ -388,6 +389,13 @@ public class TezTask extends Task<TezWork> {
       } else {
         // Regular vertices
         JobConf wxConf = utils.initializeVertexConf(conf, ctx, w);
+        if(w instanceof MapWork) {
+        	if(((MapWork)w).isAddedBySortedTable())
+        		wxConf.setBoolean(TezRuntimeConfiguration.TEZ_RUNTIME_GLOBAL_SORTED_TABLE, true);
+        }else if(w instanceof ReduceWork) {
+        	if(((ReduceWork)w).isAddedBySortedTable())
+        		wxConf.setBoolean(TezRuntimeConfiguration.TEZ_RUNTIME_GLOBAL_SORTED_TABLE, true);
+        }
         Vertex wx =
             utils.createVertex(wxConf, w, scratchDir, appJarLr, additionalLr, fs, ctx, !isFinal,
                 work, work.getVertexType(w));
