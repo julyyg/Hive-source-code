@@ -175,7 +175,8 @@ public class Optimizer {
     }
 
     if (HiveConf.getBoolVar(hiveConf, HiveConf.ConfVars.HIVEOPTIMIZEBUCKETINGSORTING)) {
-      transformations.add(new BucketingSortingReduceSinkOptimizer());
+    	if(!HiveConf.getBoolVar(hiveConf, HiveConf.ConfVars.HIVEGLOBALSORTEDTABLEOPTIMIZE))
+    		transformations.add(new BucketingSortingReduceSinkOptimizer());
     }
 
     transformations.add(new UnionProcessor());
